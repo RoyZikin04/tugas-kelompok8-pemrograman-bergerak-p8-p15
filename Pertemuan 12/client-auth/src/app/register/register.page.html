@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>📝 Daftar Akun</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <!-- Header Text -->
+  <div class="ion-text-center ion-margin-vertical">
+    <ion-icon name="person-add" size="large" color="primary"></ion-icon>
+    <h2>Buat Akun Baru</h2>
+    <p class="ion-text-color-medium">Isi data di bawah untuk mendaftar</p>
+  </div>
+
+  <!-- Register Form -->
+  <ion-card>
+    <ion-card-content>
+      
+      <!-- Username Input -->
+      <ion-item>
+        <ion-input 
+          label="Username" 
+          labelPlacement="floating"
+          type="text"
+          [(ngModel)]="username"
+          placeholder="Minimal 3 karakter">
+        </ion-input>
+      </ion-item>
+
+      <!-- Password Input -->
+      <ion-item>
+        <ion-input 
+          label="Password" 
+          labelPlacement="floating"
+          type="password"
+          [(ngModel)]="password"
+          placeholder="Minimal 6 karakter">
+        </ion-input>
+      </ion-item>
+
+      <!-- Confirm Password Input -->
+      <ion-item>
+        <ion-input 
+          label="Konfirmasi Password" 
+          labelPlacement="floating"
+          type="password"
+          [(ngModel)]="confirmPassword"
+          placeholder="Ketik ulang password">
+        </ion-input>
+      </ion-item>
+
+      <!-- Register Button -->
+      <ion-button 
+        expand="block" 
+        class="ion-margin-top"
+        (click)="register()">
+        <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+        DAFTAR SEKARANG
+      </ion-button>
+
+      <!-- Link ke Login -->
+      <ion-button 
+        expand="block" 
+        fill="clear" 
+        color="medium"
+        routerLink="/login">
+        Sudah punya akun? Login di sini
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Security Info -->
+  <ion-card color="light">
+    <ion-card-content>
+      <div class="ion-text-center">
+        <ion-icon name="shield-checkmark" color="success"></ion-icon>
+        <p class="ion-text-color-medium">
+          Password akan dienkripsi dengan Bcrypt (10 rounds)
+        </p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

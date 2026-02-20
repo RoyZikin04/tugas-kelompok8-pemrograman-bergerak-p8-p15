@@ -1,0 +1,95 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <div class="header-title">
+        <ion-icon name="sparkles-outline" class="header-icon"></ion-icon>
+        <span>Gemini AI Chat</span>
+      </div>
+    </ion-title>
+    <ion-button slot="end" fill="clear" (click)="clearChat()" *ngIf="messages.length > 0">
+      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content [fullscreen]="true" class="chat-content">
+
+  <div class="chat-container" #chatContent>
+    <!-- API Key Warning -->
+    <div *ngIf="!apiKeyConfigured" class="api-warning">
+      <ion-card color="warning">
+        <ion-card-content>
+          <h2>⚠️ API Key Belum Dikonfigurasi</h2>
+          <p>Silakan tambahkan API Key Gemini Anda di file:</p>
+          <code>src/environments/environment.ts</code>
+          <p class="mt-2">Dapatkan API Key gratis di:</p>
+          <a href="https://makersuite.google.com/app/apikey" target="_blank">
+            https://makersuite.google.com/app/apikey
+          </a>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Messages -->
+    <div *ngIf="messages.length === 0 && apiKeyConfigured" class="empty-chat">
+      <ion-icon name="sparkles-outline" class="empty-icon"></ion-icon>
+      <h2>Mulai Percakapan</h2>
+      <p>Kirim pesan untuk memulai chat dengan Gemini AI</p>
+    </div>
+
+    <div *ngFor="let message of messages" 
+         [class.user-message]="message.isUser" 
+         [class.ai-message]="!message.isUser"
+         class="message-wrapper">
+      <div class="message-bubble">
+        <div class="message-avatar" *ngIf="!message.isUser">
+          <ion-icon name="sparkles-outline"></ion-icon>
+        </div>
+        <div class="message-content">
+          <div class="message-text">{{ message.text }}</div>
+          <div class="message-time">
+            {{ message.timestamp | date:'HH:mm' }}
+          </div>
+        </div>
+        <div class="message-avatar" *ngIf="message.isUser">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="ai-message message-wrapper">
+      <div class="message-bubble">
+        <div class="message-avatar">
+          <ion-icon name="sparkles-outline"></ion-icon>
+        </div>
+        <div class="message-content loading-message">
+          <ion-spinner name="dots"></ion-spinner>
+          <span>AI sedang mengetik...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="input-toolbar">
+    <div class="input-container">
+      <ion-input
+        [(ngModel)]="userInput"
+        placeholder="Ketik pesan Anda..."
+        (keypress)="onKeyPress($event)"
+        [disabled]="isLoading || !apiKeyConfigured"
+        class="chat-input"
+      ></ion-input>
+      <ion-button 
+        (click)="sendMessage()" 
+        [disabled]="!userInput.trim() || isLoading || !apiKeyConfigured"
+        class="send-button"
+        shape="round"
+        color="primary">
+        <ion-icon slot="icon-only" name="send-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

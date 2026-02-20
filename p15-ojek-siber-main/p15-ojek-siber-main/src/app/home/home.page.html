@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Ojek Siber (Security Demo)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>1. Test Login</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input label="Username" labelPlacement="floating" fill="outline" [(ngModel)]="username"></ion-input><br>
+      <ion-input label="Password" type="password" labelPlacement="floating" fill="outline" [(ngModel)]="password"></ion-input><br>
+      <ion-button expand="block" color="warning" (click)="loginVulnerable()">Login (Tidak Aman)</ion-button>
+      <p style="font-size: 10px; color: grey;">Coba username: <b>admin' -- </b></p>
+      <ion-button expand="block" color="success" (click)="loginSecure()">Login (Aman)</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>2. Test Lokasi</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Aktifkan Fake GPS (Simulasi)</ion-label>
+        <ion-toggle [(ngModel)]="isFakeGPS"></ion-toggle>
+      </ion-item>
+      <ion-button expand="block" (click)="kirimLokasi()">Kirim Lokasi ke Server</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

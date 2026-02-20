@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>🔐 Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <!-- Header Text -->
+  <div class="ion-text-center ion-margin-vertical">
+    <ion-icon name="lock-closed" size="large" color="primary"></ion-icon>
+    <h2>Selamat Datang!</h2>
+    <p class="ion-text-color-medium">Silakan login untuk melanjutkan</p>
+  </div>
+
+  <!-- Login Form -->
+  <ion-card>
+    <ion-card-content>
+      
+      <!-- Username Input -->
+      <ion-item>
+        <ion-input 
+          label="Username" 
+          labelPlacement="floating"
+          type="text"
+          [(ngModel)]="username"
+          placeholder="Masukkan username">
+        </ion-input>
+      </ion-item>
+
+      <!-- Password Input -->
+      <ion-item>
+        <ion-input 
+          label="Password" 
+          labelPlacement="floating"
+          type="password"
+          [(ngModel)]="password"
+          placeholder="Masukkan password">
+        </ion-input>
+      </ion-item>
+
+      <!-- Login Button -->
+      <ion-button 
+        expand="block" 
+        class="ion-margin-top"
+        (click)="login()">
+        <ion-icon name="log-in" slot="start"></ion-icon>
+        MASUK
+      </ion-button>
+
+      <!-- Link ke Register -->
+      <ion-button 
+        expand="block" 
+        fill="clear" 
+        color="medium"
+        routerLink="/register">
+        Belum punya akun? Daftar di sini
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Info Card -->
+  <ion-card color="light">
+    <ion-card-content>
+      <p class="ion-text-center ion-text-color-medium">
+        <ion-icon name="shield-checkmark"></ion-icon>
+        Password Anda diamankan dengan enkripsi Bcrypt
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

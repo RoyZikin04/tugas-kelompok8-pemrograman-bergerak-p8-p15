@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Daftar Akun Baru</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <div class="ion-text-center ion-margin-bottom">
+    <img src="assets/icon/favicon.png" style="width: 80px; margin-top: 20px;" alt="Logo">
+    <h2>GeoPatrol</h2>
+    <p>Silakan lengkapi data diri Anda.</p>
+  </div>
+
+  <ion-card>
+    <ion-card-content>
+      
+      <ion-input 
+        label="Nama Lengkap" 
+        labelPlacement="floating" 
+        fill="outline" 
+        placeholder="Contoh: Budi Santoso"
+        [(ngModel)]="registerData.full_name">
+      </ion-input>
+      
+      <br>
+
+      <ion-input 
+        label="Username" 
+        labelPlacement="floating" 
+        fill="outline" 
+        placeholder="Buat username unik"
+        [(ngModel)]="registerData.username">
+      </ion-input>
+
+      <br>
+
+      <ion-input 
+        label="Password" 
+        type="password" 
+        labelPlacement="floating" 
+        fill="outline" 
+        placeholder="Minimal 6 karakter"
+        [(ngModel)]="registerData.password">
+      </ion-input>
+
+      <br>
+
+      <ion-button expand="block" color="primary" (click)="onRegister()">
+        DAFTAR SEKARANG
+      </ion-button>
+
+      <div class="ion-text-center ion-margin-top">
+        <p>Sudah punya akun?</p>
+        <ion-button fill="clear" routerLink="/login" size="small">
+          Login di sini
+        </ion-button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

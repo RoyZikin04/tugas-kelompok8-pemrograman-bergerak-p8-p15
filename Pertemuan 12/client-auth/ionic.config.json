@@ -1,0 +1,7 @@
+{
+  "name": "client-auth",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

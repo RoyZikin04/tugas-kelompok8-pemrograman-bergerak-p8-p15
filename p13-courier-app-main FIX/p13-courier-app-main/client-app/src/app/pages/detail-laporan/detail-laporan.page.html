@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Laporan</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)="confirmDelete()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div *ngIf="!delivery" class="ion-text-center ion-padding" style="margin-top: 50px;">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Memuat data...</p>
+  </div>
+
+  <div *ngIf="delivery">
+    <div id="map-detail" style="width: 100%; height: 35vh;"></div>
+
+    <div class="ion-padding">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>No. Resi</ion-card-subtitle>
+          <ion-card-title>{{ delivery.no_resi }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-icon name="person-outline" slot="start"></ion-icon>
+              <ion-label>
+                <h3>Penerima</h3>
+                <p>{{ delivery.customer_name }}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="time-outline" slot="start"></ion-icon>
+              <ion-label>
+                <h3>Waktu Kirim</h3>
+                <p>{{ delivery.created_at | date:'medium' }}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="location-outline" slot="start"></ion-icon>
+              <ion-label>
+                <h3>Koordinat</h3>
+                <p>{{ delivery.latitude | number:'1.5-5' }}, {{ delivery.longitude | number:'1.5-5' }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+
+      <h3 style="margin-left: 10px; margin-top: 20px;">Bukti Foto</h3>
+      <ion-card>
+        <img [src]="delivery.photo_path" style="width: 100%; display: block;" />
+      </ion-card>
+
+      <ion-button expand="block" color="success" class="ion-margin-top" disabled="true">
+        STATUS: {{ delivery.status }}
+      </ion-button>
+
+      <ion-button expand="block" color="danger" class="ion-margin-top" (click)="confirmDelete()">
+        <ion-icon slot="start" name="trash-outline"></ion-icon>
+        HAPUS LAPORAN
+      </ion-button>
+      
+      <div style="height: 50px;"></div> </div>
+  </div>
+
+</ion-content>

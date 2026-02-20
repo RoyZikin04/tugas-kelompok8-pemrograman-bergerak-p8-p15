@@ -1,0 +1,133 @@
+<ion-content>
+
+  <!-- HEADER -->
+  <div class="dk-header">
+    <div class="dk-user">
+      <div class="dk-avatar">DK</div>
+      <div>
+        <span class="dk-greeting">Halo, Pengguna 👋</span>
+        <span class="dk-name">DanaKilat</span>
+      </div>
+    </div>
+    <div class="dk-notif">
+      <img src="assets/ionicons/svg/notifications-outline.svg" />
+    </div>
+  </div>
+
+  <!-- BALANCE CARD -->
+  <div class="dk-card">
+    <div class="dk-card-label">
+      <span>Saldo Tersedia</span>
+      <img src="assets/ionicons/svg/eye-outline.svg" />
+    </div>
+    <div class="dk-amount">Rp {{ saldo | number:'1.0-0' }}</div>
+    <div class="dk-actions">
+      <button class="dk-action-btn">
+        <div class="dk-action-icon"><img src="assets/ionicons/svg/add-outline.svg" /></div>
+        <span>Isi Saldo</span>
+      </button>
+      <button class="dk-action-btn">
+        <div class="dk-action-icon"><img src="assets/ionicons/svg/arrow-up-outline.svg" /></div>
+        <span>Transfer</span>
+      </button>
+      <button class="dk-action-btn">
+        <div class="dk-action-icon"><img src="assets/ionicons/svg/arrow-down-outline.svg" /></div>
+        <span>Tarik</span>
+      </button>
+      <button class="dk-action-btn">
+        <div class="dk-action-icon"><img src="assets/ionicons/svg/ellipsis-horizontal-outline.svg" /></div>
+        <span>Lainnya</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SCAN BUTTON -->
+  <div class="dk-scan-wrap">
+    <ion-button expand="block" class="dk-scan-btn" (click)="scanQR()">
+      <img src="assets/ionicons/svg/qr-code-outline.svg" slot="start" />
+      Scan &amp; Bayar QRIS
+    </ion-button>
+  </div>
+
+  <!-- LAYANAN -->
+  <div class="dk-section">
+    <div class="dk-section-head">
+      <span class="dk-section-title">Layanan</span>
+    </div>
+    <div class="dk-service-grid">
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#EEF2FF"><img src="assets/ionicons/svg/phone-portrait-outline.svg" style="filter:invert(33%) sepia(98%) saturate(600%) hue-rotate(210deg)" /></div>
+        <span>Pulsa</span>
+      </div>
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#E0F2FE"><img src="assets/ionicons/svg/water-outline.svg" style="filter:invert(45%) sepia(80%) saturate(400%) hue-rotate(170deg)" /></div>
+        <span>Air</span>
+      </div>
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#FEF9C3"><img src="assets/ionicons/svg/flash-outline.svg" style="filter:invert(70%) sepia(90%) saturate(600%) hue-rotate(10deg)" /></div>
+        <span>Listrik</span>
+      </div>
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#DCFCE7"><img src="assets/ionicons/svg/wifi-outline.svg" style="filter:invert(50%) sepia(80%) saturate(400%) hue-rotate(100deg)" /></div>
+        <span>Internet</span>
+      </div>
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#FFE4E6"><img src="assets/ionicons/svg/game-controller-outline.svg" style="filter:invert(35%) sepia(90%) saturate(600%) hue-rotate(320deg)" /></div>
+        <span>Games</span>
+      </div>
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#FEF3C7"><img src="assets/ionicons/svg/car-outline.svg" style="filter:invert(55%) sepia(90%) saturate(500%) hue-rotate(20deg)" /></div>
+        <span>Transport</span>
+      </div>
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#EDE9FE"><img src="assets/ionicons/svg/cart-outline.svg" style="filter:invert(35%) sepia(70%) saturate(500%) hue-rotate(250deg)" /></div>
+        <span>Belanja</span>
+      </div>
+      <div class="dk-service-item">
+        <div class="dk-service-icon" style="--ic:#F1F5F9"><img src="assets/ionicons/svg/apps-outline.svg" style="filter:invert(40%) sepia(10%) saturate(300%) hue-rotate(200deg)" /></div>
+        <span>Lainnya</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMO -->
+  <div class="dk-promo">
+    <div>
+      <span class="dk-promo-tag">Promo</span>
+      <p class="dk-promo-title">Cashback 10% untuk semua transaksi hari ini!</p>
+    </div>
+    <span class="dk-promo-emoji">🎁</span>
+  </div>
+
+  <!-- TRANSAKSI -->
+  <div class="dk-section">
+    <div class="dk-section-head">
+      <span class="dk-section-title">Transaksi Terbaru</span>
+    </div>
+    <div *ngIf="history.length === 0" class="dk-empty">
+      <div class="dk-empty-box">
+        <img src="assets/ionicons/svg/receipt-outline.svg" />
+      </div>
+      <p class="dk-empty-title">Belum ada transaksi</p>
+      <p class="dk-empty-sub">Scan QR Code untuk mulai bayar</p>
+    </div>
+    <div class="dk-trx-list" *ngIf="history.length > 0">
+      <div class="dk-trx-row" *ngFor="let item of history">
+        <div class="dk-trx-icon">
+          <img src="assets/ionicons/svg/storefront-outline.svg" />
+        </div>
+        <div class="dk-trx-info">
+          <span class="dk-trx-name">{{ item.merchant }}</span>
+          <span class="dk-trx-time">{{ item.waktu }} · QRIS</span>
+        </div>
+        <div class="dk-trx-right">
+          <span class="dk-trx-amount">-Rp {{ item.nominal | number:'1.0-0' }}</span>
+          <span class="dk-trx-status">Berhasil</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dk-space"></div>
+
+</ion-content>

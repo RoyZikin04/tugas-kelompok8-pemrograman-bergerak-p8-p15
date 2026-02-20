@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start"><ion-back-button defaultHref="/home"></ion-back-button></ion-buttons>
+    <ion-title>Input Laporan</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleMapLayer()">
+        <ion-icon name="map-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="map" style="width: 100%; height: 35vh;"></div>
+
+  <div class="ion-padding">
+    <ion-card *ngIf="distanceFromOffice !== null" [color]="distanceFromOffice > 100 ? 'danger' : 'success'">
+      <ion-card-content>
+        Jarak dari Pusat: {{ distanceFromOffice | number:'1.0-2' }} Meter
+        <p *ngIf="distanceFromOffice > 100">⚠️ Di luar jangkauan area!</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-input label="No Resi" labelPlacement="floating" fill="outline" [(ngModel)]="noResi"></ion-input><br>
+    <ion-input label="Nama Penerima" labelPlacement="floating" fill="outline" [(ngModel)]="customerName"></ion-input><br>
+
+    <div *ngIf="photoBase64" class="ion-text-center">
+      <img [src]="photoBase64" style="height: 150px; border-radius: 10px;" />
+    </div>
+
+    <ion-button expand="block" color="secondary" (click)="takePicture()">
+      <ion-icon slot="start" name="camera"></ion-icon> Ambil Foto Bukti
+    </ion-button>
+
+    <ion-button expand="block" color="success" class="ion-margin-top" (click)="submitData()">
+      <ion-icon slot="start" name="send"></ion-icon> Kirim Laporan
+    </ion-button>
+  </div>
+</ion-content>

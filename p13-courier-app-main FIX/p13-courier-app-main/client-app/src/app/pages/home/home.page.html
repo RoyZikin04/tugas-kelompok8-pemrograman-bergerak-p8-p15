@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Riwayat Pengiriman</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="refreshData($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of deliveries">
+      
+      <ion-item button (click)="openDetail(item.id!)">
+        <ion-thumbnail slot="start">
+          <img [src]="item.photo_path" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ item.no_resi }}</h2>
+          <p>{{ item.customer_name }}</p>
+          <p style="font-size: 0.8em; color: gray;">{{ item.created_at | date:'medium' }}</p>
+        </ion-label>
+        <ion-badge color="success" slot="end">{{ item.status }}</ion-badge>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteItem(item.id!)">Hapus</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <div *ngIf="deliveries.length === 0" class="ion-text-center ion-padding" style="margin-top: 50px; color: gray;">
+    <ion-icon name="document-text-outline" style="font-size: 40px;"></ion-icon>
+    <p>Belum ada laporan pengiriman.</p>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/form-laporan">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

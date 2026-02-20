@@ -1,0 +1,11 @@
+<ion-header><ion-toolbar color="primary"><ion-title>Login GeoPatrol</ion-title></ion-toolbar></ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <ion-input label="Username" labelPlacement="floating" fill="outline" [(ngModel)]="username"></ion-input><br>
+      <ion-input label="Password" type="password" labelPlacement="floating" fill="outline" [(ngModel)]="password"></ion-input><br>
+      <ion-button expand="block" (click)="onLogin()">MASUK</ion-button>
+      <ion-button expand="block" fill="clear" routerLink="/register">Daftar Akun</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

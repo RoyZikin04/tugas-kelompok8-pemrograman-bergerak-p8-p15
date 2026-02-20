@@ -1,0 +1,74 @@
+<ion-content>
+
+  <!-- HEADER -->
+  <div class="m-header">
+    <div class="m-header-icon">
+      <img src="assets/ionicons/svg/storefront-outline.svg" />
+    </div>
+    <div>
+      <span class="m-header-sub">Mode Merchant</span>
+      <span class="m-header-title">Terima Pembayaran</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="m-card">
+    <p class="m-card-title">Detail Tagihan</p>
+
+    <div class="m-field">
+      <label class="m-label">Nama Toko / Merchant</label>
+      <div class="m-input-wrap">
+        <img src="assets/ionicons/svg/storefront-outline.svg" />
+        <ion-input class="m-input" [(ngModel)]="merchantName" placeholder="contoh: Bakso Pak Kumis" type="text"></ion-input>
+      </div>
+    </div>
+
+    <div class="m-field">
+      <label class="m-label">Nominal Tagihan</label>
+      <div class="m-input-wrap">
+        <span class="m-rp">Rp</span>
+        <ion-input class="m-input" [(ngModel)]="harga" placeholder="0" type="number"></ion-input>
+      </div>
+    </div>
+
+    <ion-button expand="block" class="m-gen-btn" (click)="generateQR()" [disabled]="!merchantName || !harga">
+      <img src="assets/ionicons/svg/qr-code-outline.svg" slot="start" />
+      Buat QR Code
+    </ion-button>
+  </div>
+
+  <!-- QR RESULT -->
+  <div class="m-qr-card" *ngIf="qrGenerated">
+    <div class="m-qr-top">
+      <div class="m-qr-check">✓</div>
+      <div>
+        <p class="m-qr-ready">QR Siap Dipindai</p>
+        <p class="m-qr-hint">Tunjukkan ke pelanggan</p>
+      </div>
+    </div>
+
+    <div class="m-summary">
+      <div class="m-summary-row">
+        <span class="m-summary-label">Merchant</span>
+        <span class="m-summary-val">{{ merchantName }}</span>
+      </div>
+      <div class="m-summary-div"></div>
+      <div class="m-summary-row">
+        <span class="m-summary-label">Total Tagihan</span>
+        <span class="m-summary-val m-summary-price">Rp {{ harga | number:'1.0-0' }}</span>
+      </div>
+    </div>
+
+    <div class="m-qr-box">
+      <qrcode [qrdata]="qrData" [width]="200" [errorCorrectionLevel]="'M'" [elementType]="'img'"></qrcode>
+    </div>
+
+    <ion-button expand="block" fill="outline" class="m-reset-btn" (click)="resetQR()">
+      <img src="assets/ionicons/svg/refresh-outline.svg" slot="start" />
+      Buat QR Baru
+    </ion-button>
+  </div>
+
+  <div class="dk-space"></div>
+
+</ion-content>

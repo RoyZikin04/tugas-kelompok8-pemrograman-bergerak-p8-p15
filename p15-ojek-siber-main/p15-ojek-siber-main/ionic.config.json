@@ -1,0 +1,7 @@
+{
+  "name": "ojek-siber",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

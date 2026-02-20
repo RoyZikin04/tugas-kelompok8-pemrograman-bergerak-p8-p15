@@ -1,0 +1,237 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+/* @import "@ionic/angular/css/palettes/dark.system.css"; */
+
+/* Saat mode scan aktif, buat background transparan agar kamera terlihat */
+/* Global styles untuk DanaKilat */
+
+/* Fix scan mode */
+/* Pastikan tidak ada elemen yang menutupi layar */
+/* ===== GLOBAL STYLES DanaKilat ===== */
+
+/* ===== GLOBAL DanaKilat ===== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+* { font-family: 'DM Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+ion-app, ion-content { --background: #F5F7FA; background: #F5F7FA; }
+
+body.barcode-scanner-active {
+  background: transparent !important;
+  --background: transparent !important;
+  ion-content { --background: transparent !important; }
+}
+
+/* ── HOME: HEADER ── */
+.dk-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 52px 20px 14px; background: white;
+}
+.dk-avatar {
+  width: 38px; height: 38px; border-radius: 12px; background: #2563EB;
+  color: white; font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.dk-user { display: flex; align-items: center; gap: 10px; }
+.dk-greeting { display: block; font-size: 11px; color: #94A3B8; font-weight: 500; }
+.dk-name { display: block; font-size: 15px; color: #1E293B; font-weight: 700; }
+.dk-notif {
+  width: 38px; height: 38px; border-radius: 12px; background: #F1F5F9;
+  display: flex; align-items: center; justify-content: center;
+  img { width: 20px; height: 20px; filter: invert(40%) sepia(10%) saturate(500%) hue-rotate(200deg); }
+}
+
+/* ── HOME: BALANCE CARD ── */
+.dk-card {
+  margin: 12px 16px; border-radius: 20px; padding: 20px;
+  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 60%, #3B82F6 100%);
+  box-shadow: 0 8px 24px rgba(37,99,235,0.28);
+}
+.dk-card-label { font-size: 12px; color: rgba(255,255,255,0.75); font-weight: 500; display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+.dk-card-label img { width: 14px; height: 14px; filter: brightness(0) invert(1) opacity(0.6); }
+.dk-amount { font-size: 28px; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 18px; }
+.dk-actions { display: flex; gap: 6px; }
+.dk-action-btn {
+  flex: 1; background: rgba(255,255,255,0.18); border: none; border-radius: 12px;
+  padding: 10px 4px; display: flex; flex-direction: column; align-items: center; gap: 5px;
+  color: white; font-size: 11px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer;
+}
+.dk-action-icon {
+  width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  img { width: 15px; height: 15px; filter: brightness(0) invert(1); }
+}
+
+/* ── HOME: SCAN BUTTON ── */
+.dk-scan-wrap { padding: 4px 16px 8px; }
+.dk-scan-btn {
+  --background: #1E293B; --background-activated: #0F172A;
+  --border-radius: 14px; --padding-top: 16px; --padding-bottom: 16px;
+  font-size: 15px; font-weight: 700;
+  box-shadow: 0 4px 16px rgba(30,41,59,0.2);
+  img { width: 20px; height: 20px; filter: brightness(0) invert(1); margin-right: 8px; }
+}
+
+/* ── SECTION ── */
+.dk-section { padding: 0 16px; margin-bottom: 4px; }
+.dk-section-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 10px; }
+.dk-section-title { font-size: 15px; font-weight: 700; color: #1E293B; }
+
+/* ── SERVICE GRID ── */
+.dk-service-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: white; border-radius: 16px; padding: 6px 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.dk-service-item { display: flex; flex-direction: column; align-items: center; padding: 10px 4px; }
+.dk-service-icon {
+  width: 48px; height: 48px; border-radius: 14px; background: var(--ic, #EEF2FF);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 7px;
+  img { width: 24px; height: 24px; }
+}
+.dk-service-item span { font-size: 11px; font-weight: 600; color: #475569; text-align: center; }
+
+/* ── PROMO ── */
+.dk-promo {
+  margin: 4px 16px 4px; background: #EFF6FF; border: 1px solid #BFDBFE;
+  border-radius: 14px; padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.dk-promo-tag {
+  display: inline-block; background: #2563EB; color: white;
+  font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 20px;
+  margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.dk-promo-title { font-size: 13px; font-weight: 600; color: #1E3A8A; margin: 0; line-height: 1.4; }
+.dk-promo-emoji { font-size: 28px; }
+
+/* ── EMPTY ── */
+.dk-empty {
+  background: white; border-radius: 16px; padding: 30px 20px; text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.dk-empty-box {
+  width: 60px; height: 60px; background: #F1F5F9; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;
+  img { width: 30px; height: 30px; filter: invert(60%) sepia(10%) saturate(300%) hue-rotate(200deg); }
+}
+.dk-empty-title { font-size: 14px; font-weight: 700; color: #1E293B; margin: 0 0 4px; }
+.dk-empty-sub { font-size: 12px; color: #94A3B8; font-weight: 500; margin: 0; }
+
+/* ── TRX LIST ── */
+.dk-trx-list { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.dk-trx-row {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  border-bottom: 1px solid #F1F5F9;
+  &:last-child { border-bottom: none; }
+}
+.dk-trx-icon {
+  width: 44px; height: 44px; background: #EFF6FF; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  img { width: 22px; height: 22px; filter: invert(33%) sepia(98%) saturate(600%) hue-rotate(210deg); }
+}
+.dk-trx-info { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.dk-trx-name { font-size: 14px; font-weight: 700; color: #1E293B; }
+.dk-trx-time { font-size: 11px; color: #94A3B8; font-weight: 500; }
+.dk-trx-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.dk-trx-amount { font-size: 14px; font-weight: 700; color: #EF4444; }
+.dk-trx-status { font-size: 10px; font-weight: 600; color: #16A34A; background: #DCFCE7; padding: 2px 8px; border-radius: 20px; }
+
+/* ── MERCHANT ── */
+.m-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 52px 20px 18px; background: white;
+}
+.m-header-icon {
+  width: 44px; height: 44px; background: #EFF6FF; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  img { width: 24px; height: 24px; filter: invert(33%) sepia(98%) saturate(600%) hue-rotate(210deg); }
+}
+.m-header-sub { display: block; font-size: 11px; color: #94A3B8; font-weight: 500; }
+.m-header-title { display: block; font-size: 18px; color: #1E293B; font-weight: 800; }
+
+.m-card { margin: 16px; background: white; border-radius: 20px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.m-card-title { font-size: 15px; font-weight: 700; color: #1E293B; margin: 0 0 16px 0; }
+
+.m-field { margin-bottom: 14px; }
+.m-label { display: block; font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px; }
+.m-input-wrap {
+  display: flex; align-items: center; background: #F8FAFC;
+  border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 0 14px; gap: 10px;
+  img { width: 18px; height: 18px; filter: invert(40%) sepia(10%) saturate(500%) hue-rotate(200deg); flex-shrink: 0; }
+}
+.m-rp { font-size: 15px; font-weight: 700; color: #475569; flex-shrink: 0; }
+.m-input {
+  --color: #1E293B; --placeholder-color: #CBD5E1; --background: transparent;
+  --padding-start: 0; --padding-end: 0; --padding-top: 14px; --padding-bottom: 14px;
+  font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif;
+}
+.m-gen-btn {
+  --background: #2563EB; --border-radius: 12px; --padding-top: 16px; --padding-bottom: 16px;
+  font-size: 15px; font-weight: 700; margin-top: 8px;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.25);
+  img { width: 18px; height: 18px; filter: brightness(0) invert(1); margin-right: 8px; }
+}
+
+.m-qr-card { margin: 0 16px; background: white; border-radius: 20px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.m-qr-top { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.m-qr-check {
+  width: 40px; height: 40px; background: #DCFCE7; color: #16A34A;
+  font-size: 18px; font-weight: 800; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.m-qr-ready { font-size: 15px; font-weight: 700; color: #1E293B; margin: 0 0 2px 0; }
+.m-qr-hint { font-size: 12px; color: #94A3B8; font-weight: 500; margin: 0; }
+
+.m-summary { background: #F8FAFC; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; }
+.m-summary-row { display: flex; align-items: center; justify-content: space-between; }
+.m-summary-label { font-size: 12px; color: #94A3B8; font-weight: 600; }
+.m-summary-val { font-size: 14px; color: #1E293B; font-weight: 700; }
+.m-summary-price { font-size: 18px; color: #2563EB; font-weight: 800; }
+.m-summary-div { height: 1px; background: #E2E8F0; margin: 10px 0; }
+
+.m-qr-box {
+  display: flex; justify-content: center;
+  border: 2px solid #E2E8F0; border-radius: 16px; padding: 18px; margin-bottom: 14px;
+}
+.m-reset-btn {
+  --border-radius: 12px; --color: #64748B; --border-color: #E2E8F0;
+  font-size: 14px; font-weight: 600;
+  img { width: 16px; height: 16px; filter: invert(40%); margin-right: 8px; }
+}
+
+.dk-space { height: 32px; }

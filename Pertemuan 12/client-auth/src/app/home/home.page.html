@@ -1,0 +1,160 @@
+<ion-header [translucent]="false">
+  <ion-toolbar color="success">
+    <ion-title>🏠 Beranda</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doLogout()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="false">
+  
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="refreshData($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="ion-padding">
+    
+    <!-- Welcome Card -->
+    <ion-card color="success">
+      <ion-card-content>
+        <div class="ion-text-center">
+          <ion-icon name="shield-checkmark" size="large"></ion-icon>
+          <h1>Selamat Datang!</h1>
+          <h2>{{ username }}</h2>
+          <ion-badge color="light">{{ role }}</ion-badge>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Info Cards -->
+    <ion-grid>
+      <ion-row>
+        
+        <!-- Card 1: User Info -->
+        <ion-col size="12" size-md="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-icon name="person" color="primary"></ion-icon>
+                Informasi Akun
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  <ion-label>
+                    <h3>Username</h3>
+                    <p>{{ username }}</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    <h3>Role</h3>
+                    <p>{{ role }}</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    <h3>Login Time</h3>
+                    <p>{{ loginTime }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <!-- Card 2: Security Info -->
+        <ion-col size="12" size-md="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-icon name="lock-closed" color="warning"></ion-icon>
+                Keamanan
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  <ion-icon name="key" slot="start" color="primary"></ion-icon>
+                  <ion-label>
+                    <h3>JWT Token</h3>
+                    <p>{{ tokenPreview }}</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="time" slot="start" color="warning"></ion-icon>
+                  <ion-label>
+                    <h3>Masa Berlaku</h3>
+                    <p>1 jam sejak login</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="shield" slot="start" color="success"></ion-icon>
+                  <ion-label>
+                    <h3>Enkripsi</h3>
+                    <p>Bcrypt (10 rounds)</p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <!-- Protected Content Card -->
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="lock-closed"></ion-icon>
+          Konten Dilindungi
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          ✅ Anda berhasil mengakses halaman yang dilindungi oleh <strong>AuthGuard</strong>.
+        </p>
+        <p>
+          Halaman ini hanya bisa diakses oleh user yang sudah login dan memiliki token JWT yang valid.
+        </p>
+        <ion-button expand="block" fill="outline" (click)="showFullToken()">
+          <ion-icon name="eye" slot="start"></ion-icon>
+          Lihat Full Token
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Security Tips -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>💡 Tips Keamanan</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ul>
+          <li>Jangan bagikan token JWT Anda</li>
+          <li>Logout saat selesai menggunakan aplikasi</li>
+          <li>Gunakan password yang kuat</li>
+          <li>Hindari login di WiFi publik</li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Logout Button -->
+    <ion-button 
+      expand="block" 
+      color="danger" 
+      (click)="doLogout()"
+      class="ion-margin-vertical">
+      <ion-icon name="log-out" slot="start"></ion-icon>
+      Logout
+    </ion-button>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "tugas-toko",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
