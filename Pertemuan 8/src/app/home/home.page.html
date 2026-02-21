@@ -1,95 +1,275 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-title>
-      <div class="header-title">
-        <ion-icon name="sparkles-outline" class="header-icon"></ion-icon>
-        <span>Gemini AI Chat</span>
-      </div>
+<ion-header>
+  <ion-toolbar class="main-toolbar">
+    <ion-title class="app-title">
+      <em class="title-icon">✦</em> AI Studio
     </ion-title>
-    <ion-button slot="end" fill="clear" (click)="clearChat()" *ngIf="messages.length > 0">
-      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-    </ion-button>
   </ion-toolbar>
+
+  <div class="tab-bar">
+    <button class="tab-btn" [class.active]="activeSegment === 'chatbot'" (click)="activeSegment='chatbot'">
+      <span class="tab-icon">💬</span>
+      <span class="tab-label">Chat</span>
+    </button>
+    <button class="tab-btn" [class.active]="activeSegment === 'randomuser'" (click)="activeSegment='randomuser'">
+      <span class="tab-icon">👤</span>
+      <span class="tab-label">User</span>
+    </button>
+    <button class="tab-btn" [class.active]="activeSegment === 'grammar'" (click)="activeSegment='grammar'; onSegmentChange()">
+      <span class="tab-icon">✍️</span>
+      <span class="tab-label">Grammar</span>
+    </button>
+  </div>
 </ion-header>
 
-<ion-content #content [fullscreen]="true" class="chat-content">
+<ion-content [fullscreen]="true" class="main-content">
 
-  <div class="chat-container" #chatContent>
-    <!-- API Key Warning -->
-    <div *ngIf="!apiKeyConfigured" class="api-warning">
-      <ion-card color="warning">
-        <ion-card-content>
-          <h2>⚠️ API Key Belum Dikonfigurasi</h2>
-          <p>Silakan tambahkan API Key Gemini Anda di file:</p>
-          <code>src/environments/environment.ts</code>
-          <p class="mt-2">Dapatkan API Key gratis di:</p>
-          <a href="https://makersuite.google.com/app/apikey" target="_blank">
-            https://makersuite.google.com/app/apikey
-          </a>
-        </ion-card-content>
-      </ion-card>
+  <!-- ============================================================ -->
+  <!-- FITUR 1: AI CHATBOT                                          -->
+  <!-- ============================================================ -->
+  <div *ngIf="activeSegment === 'chatbot'" class="chat-feature">
+
+    <div class="chat-info-bar">
+      <div class="ai-status-dot"></div>
+      <span>Gemini AI · <strong>Observable stream</strong></span>
     </div>
 
-    <!-- Messages -->
-    <div *ngIf="messages.length === 0 && apiKeyConfigured" class="empty-chat">
-      <ion-icon name="sparkles-outline" class="empty-icon"></ion-icon>
-      <h2>Mulai Percakapan</h2>
-      <p>Kirim pesan untuk memulai chat dengan Gemini AI</p>
-    </div>
+    <div class="chat-scroll-area">
 
-    <div *ngFor="let message of messages" 
-         [class.user-message]="message.isUser" 
-         [class.ai-message]="!message.isUser"
-         class="message-wrapper">
-      <div class="message-bubble">
-        <div class="message-avatar" *ngIf="!message.isUser">
-          <ion-icon name="sparkles-outline"></ion-icon>
+      <!-- Welcome -->
+      <div *ngIf="chatHistory.length === 0" class="welcome-container">
+        <div class="welcome-sigil">✦</div>
+        <h3 class="welcome-title">Halo, saya AI Assistant</h3>
+        <p class="welcome-sub">Tanyakan apa saja. Didukung oleh Google Gemini dengan Observable stream.</p>
+        <div class="suggestion-chips">
+          <button class="chip" (click)="userInput='Buatkan puisi tentang kopi'; kirimPesan()">
+            Buat puisi tentang kopi ☕
+          </button>
+          <button class="chip" (click)="userInput='Jelaskan apa itu Observable'; kirimPesan()">
+            Apa itu Observable? 📡
+          </button>
+          <button class="chip" (click)="userInput='Tips belajar programming'; kirimPesan()">
+            Tips belajar coding 💻
+          </button>
         </div>
-        <div class="message-content">
-          <div class="message-text">{{ message.text }}</div>
-          <div class="message-time">
-            {{ message.timestamp | date:'HH:mm' }}
+      </div>
+
+      <!-- Messages -->
+      <div class="messages-list">
+        <div *ngFor="let msg of chatHistory"
+             class="message-row"
+             [class.user-row]="msg.role === 'user'">
+
+          <div class="avatar" *ngIf="msg.role === 'model'">✦</div>
+
+          <div class="bubble"
+               [class.user-bubble]="msg.role === 'user'"
+               [class.ai-bubble]="msg.role === 'model'">
+            {{ msg.text }}
+          </div>
+
+          <div class="avatar user-avatar-icon" *ngIf="msg.role === 'user'">🧑</div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div class="message-row" *ngIf="chatLoading">
+          <div class="avatar">✦</div>
+          <div class="bubble ai-bubble typing-bubble">
+            <span></span><span></span><span></span>
           </div>
         </div>
-        <div class="message-avatar" *ngIf="message.isUser">
-          <ion-icon name="person-outline"></ion-icon>
-        </div>
       </div>
-    </div>
 
-    <!-- Loading Indicator -->
-    <div *ngIf="isLoading" class="ai-message message-wrapper">
-      <div class="message-bubble">
-        <div class="message-avatar">
-          <ion-icon name="sparkles-outline"></ion-icon>
-        </div>
-        <div class="message-content loading-message">
-          <ion-spinner name="dots"></ion-spinner>
-          <span>AI sedang mengetik...</span>
-        </div>
-      </div>
     </div>
   </div>
+
+  <!-- ============================================================ -->
+  <!-- FITUR 2: RANDOM USER GENERATOR                               -->
+  <!-- ============================================================ -->
+  <div *ngIf="activeSegment === 'randomuser'" class="user-feature">
+
+    <div class="feature-hero">
+      <h2 class="feature-title">Random User Generator</h2>
+      <p class="feature-subtitle">
+        Menggunakan <code>async/await</code> + <code>lastValueFrom()</code>
+      </p>
+    </div>
+
+    <!-- Empty state -->
+    <div *ngIf="!randomUser && !userLoading" class="empty-card">
+      <div class="empty-illustration">👥</div>
+      <p>Belum ada data. Klik tombol di bawah untuk generate profil acak.</p>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="userLoading" class="loading-card">
+      <div class="spinner-ring"></div>
+      <p>Mengambil data dari randomuser.me…</p>
+    </div>
+
+    <!-- User profile card -->
+    <div *ngIf="randomUser && !userLoading" class="user-profile-card">
+      <div class="profile-cover">
+        <img [src]="randomUser.picture.large" class="profile-photo" alt="user photo" />
+        <div class="profile-name-area">
+          <h2>{{ randomUser.name.first }} {{ randomUser.name.last }}</h2>
+          <span class="username">@{{ randomUser.login.username }}</span>
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <div class="detail-item">
+          <div class="detail-icon" style="background:#edf4ff; color:#3b6fcc">📧</div>
+          <div class="detail-text">
+            <span class="detail-label">Email</span>
+            <span class="detail-value">{{ randomUser.email }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon" style="background:#f0faf5; color:#3a8a5f">📞</div>
+          <div class="detail-text">
+            <span class="detail-label">Telepon</span>
+            <span class="detail-value">{{ randomUser.phone }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon" style="background:#fdf0ea; color:#c05c2e">📍</div>
+          <div class="detail-text">
+            <span class="detail-label">Lokasi</span>
+            <span class="detail-value">{{ randomUser.location.city }}, {{ randomUser.location.country }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon" style="background:#fdf9ee; color:#b07a1e">🎂</div>
+          <div class="detail-text">
+            <span class="detail-label">Tanggal Lahir</span>
+            <span class="detail-value">{{ randomUser.dob.date | date:'dd MMMM yyyy' }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon" style="background:#f5f0fa; color:#7047a8">⚧</div>
+          <div class="detail-text">
+            <span class="detail-label">Gender</span>
+            <span class="detail-value">{{ randomUser.gender | titlecase }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-footer-area">
+      <button class="generate-btn" (click)="generateUser()" [disabled]="userLoading">
+        <span *ngIf="!userLoading">🔄 &nbsp;Generate User Baru</span>
+        <span *ngIf="userLoading">Memuat…</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- FITUR 3: LIVE GRAMMAR CHECKER                                -->
+  <!-- ============================================================ -->
+  <div *ngIf="activeSegment === 'grammar'" class="grammar-feature">
+
+    <div class="feature-hero">
+      <h2 class="feature-title">Live Grammar Checker</h2>
+      <p class="feature-subtitle">
+        Otomatis cek grammar dengan <code>debounceTime</code> + <code>switchMap</code>
+      </p>
+    </div>
+
+    <div class="grammar-body">
+
+      <!-- Input -->
+      <div class="grammar-input-card">
+        <div class="input-card-header">
+          <span class="lang-badge">🇬🇧 English</span>
+          <span class="auto-badge" *ngIf="grammarInput">⚡ Auto Check</span>
+        </div>
+        <textarea
+          class="grammar-textarea"
+          [(ngModel)]="grammarInput"
+          (input)="onGrammarInput($event)"
+          placeholder="Type an English sentence here...&#10;&#10;Example: She go to school yesterday.">
+        </textarea>
+        <div class="input-hint">
+          <span class="hint-dot" [class.active]="grammarInput"></span>
+          AI memeriksa otomatis 1 detik setelah berhenti mengetik
+        </div>
+      </div>
+
+      <!-- Checking -->
+      <div *ngIf="grammarLoading" class="grammar-checking">
+        <div class="checking-bar"><div class="checking-fill"></div></div>
+        <p>AI sedang memeriksa grammar…</p>
+      </div>
+
+      <!-- Result: Correct -->
+      <div *ngIf="grammarResult && !grammarLoading && grammarResult.status === 'Correct'"
+           class="result-card correct-card">
+        <div class="result-badge correct-badge">✅ Correct!</div>
+        <p class="result-msg">Kalimat Anda sudah benar secara tata bahasa. Bagus sekali!</p>
+      </div>
+
+      <!-- Result: Incorrect -->
+      <div *ngIf="grammarResult && !grammarLoading && grammarResult.status === 'Incorrect'"
+           class="result-card incorrect-card">
+        <div class="result-badge incorrect-badge">❌ Perlu Diperbaiki</div>
+        <span class="correction-label">Koreksi AI</span>
+        <p class="correction-text">{{ grammarResult.correction }}</p>
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="grammarError && !grammarLoading" class="error-card">
+        ⚠️ {{ grammarError }}
+      </div>
+
+      <!-- RxJS explainer -->
+      <div class="rxjs-explainer">
+        <h4>💡 RxJS Pipeline</h4>
+        <div class="rxjs-steps">
+          <div class="rxjs-step">
+            <div class="step-num">1</div>
+            <div class="step-info">
+              <strong>Subject.next()</strong>
+              <span>Emit nilai tiap user mengetik</span>
+            </div>
+          </div>
+          <div class="step-arrow">↓</div>
+          <div class="rxjs-step">
+            <div class="step-num">2</div>
+            <div class="step-info">
+              <strong>debounceTime(1000)</strong>
+              <span>Tunda 1 detik setelah ketik berhenti</span>
+            </div>
+          </div>
+          <div class="step-arrow">↓</div>
+          <div class="rxjs-step">
+            <div class="step-num">3</div>
+            <div class="step-info">
+              <strong>switchMap()</strong>
+              <span>Batalkan request lama, kirim yang baru</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </ion-content>
 
-<ion-footer class="ion-no-border">
-  <ion-toolbar class="input-toolbar">
-    <div class="input-container">
-      <ion-input
-        [(ngModel)]="userInput"
-        placeholder="Ketik pesan Anda..."
-        (keypress)="onKeyPress($event)"
-        [disabled]="isLoading || !apiKeyConfigured"
-        class="chat-input"
-      ></ion-input>
-      <ion-button 
-        (click)="sendMessage()" 
-        [disabled]="!userInput.trim() || isLoading || !apiKeyConfigured"
-        class="send-button"
-        shape="round"
-        color="primary">
-        <ion-icon slot="icon-only" name="send-outline"></ion-icon>
-      </ion-button>
-    </div>
-  </ion-toolbar>
+<!-- Footer: Chat input -->
+<ion-footer *ngIf="activeSegment === 'chatbot'" class="chat-footer">
+  <div class="chat-input-bar">
+    <input
+      class="chat-text-input"
+      [(ngModel)]="userInput"
+      placeholder="Tulis pesan ke AI…"
+      (keyup.enter)="kirimPesan()" />
+    <button
+      class="chat-send-btn"
+      (click)="kirimPesan()"
+      [disabled]="chatLoading || !userInput">
+      ➤
+    </button>
+  </div>
 </ion-footer>
