@@ -1,47 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-
-export interface Message {
-  text: string;
-  isUser: boolean;
-  timestamp: Date;
-}
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class Gemini {
-  private apiUrl = 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent';
-  private apiKey = environment.geminiApiKey;
+export class GeminiService {
 
-  constructor(private http: HttpClient) {}
+  // ⚠️ GANTI dengan API Key Gemini Anda dari aistudio.google.com
+  private apiKey = 'API_PASTE_DISINI_CUY';
 
-  sendMessage(message: string): Observable<any> {
-    const key = (this.apiKey ?? '').trim();
+  private apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'x-goog-api-key': key,
-    });
+  constructor(private http: HttpClient) { }
 
+  // Digunakan oleh: Fitur 1 (Chatbot) & Fitur 3 (Grammar Checker)
+  generateText(prompt: string): Observable<any> {
+    const url = `${this.apiUrl}?key=${this.apiKey}`;
     const body = {
-      contents: [{ parts: [{ text: message }] }],
+      contents: [{
+        parts: [{ text: prompt }]
+      }]
     };
-
-    // log aman (tanpa substring yang bisa error kalau kosong)
-    console.log('Gemini key length:', key.length);
-
-    return this.http.post(this.apiUrl, body, { headers });
+    return this.http.post<any>(url, body);
   }
-
-  
-
-isApiKeyConfigured(): boolean {
-  const key = (this.apiKey ?? '').trim();
-  return key.length > 10 && !key.includes('YOUR_GEMINI_API_KEY_HERE');
-}
-
-
 }
