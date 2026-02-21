@@ -8,10 +8,10 @@
 
 | No | Nama | Pertemuan |
 |----|------|-----------|
-| 1 | 🧑‍💻 Rias Fahmi | Pertemuan 10 & 11 |
-| 2 | 🧑‍💻 Roy Zikin | Pertemuan 8 & 14 |
-| 3 | 🧑‍💻 Shindy Zhasky Pradita | Pertemuan 9 & 12 |
-| 4 | 🧑‍💻 Zein Abdillah Pratama | Pertemuan 13 & 15 |
+| 1 | Rias Fahmi | Pertemuan 10 & 11 |
+| 2 | Roy Zikin | Pertemuan 8 & 14 |
+| 3 | Shindy Zhaski Pradita | Pertemuan 9 & 12 |
+| 4 | Zein Abdillah Pratama | Pertemuan 13 & 15 |
 
 ---
 
