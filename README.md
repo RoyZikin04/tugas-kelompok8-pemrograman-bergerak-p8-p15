@@ -20,10 +20,10 @@
 ```
 📦 Tugas Kelompok
 ├── 📁 Pertemuan 8       → Roy Zikin
-├── 📁 Pertemuan 9       → Shindy Zhasky Pradita
+├── 📁 Pertemuan 9       → Shindy Zhaski Pradita
 ├── 📁 Pertemuan 10      → Rias Fahmi
 ├── 📁 Pertemuan 11      → Rias Fahmi
-├── 📁 Pertemuan 12      → Shindy Zhasky Pradita
+├── 📁 Pertemuan 12      → Shindy Zhaski Pradita
 ├── 📁 Pertemuan 13      → Zein Abdillah Pratama
 ├── 📁 Pertemuan 14      → Roy Zikin
 └── 📁 Pertemuan 15      → Zein Abdillah Pratama
