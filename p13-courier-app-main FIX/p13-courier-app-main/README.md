@@ -11,13 +11,6 @@ Interaktif.
 
 ------------------------------------------------------------------------
 
-## 👥 Anggota Kelompok
-
-1.  **Muhammad Faiz** (220511139) 
-2.  **Nama Anggota 2** (NIM) 
-
-------------------------------------------------------------------------
-
 ## 🌟 Fitur Utama (Sesuai Kriteria Tugas)
 
 1.  **Autentikasi Aman**
